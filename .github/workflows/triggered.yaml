@@ -1,6 +1,6 @@
 name: Triggered Workflow
 on:
-  workflow_run
+  workflow_run:
     workflows: ["Hello World"]
     branches: [main]
     types: 
@@ -8,6 +8,7 @@ on:
 jobs:
   triggered-workflow:
     runs-on: ubuntu-18.04
+    steps:
     - name: Triggered
       run: |
         echo "I've been triggered ${{ secrets.greeting }} !"
