@@ -10,4 +10,4 @@ jobs:
     steps:
     - name: Triggered
       run: |
-        echo "I've been triggered ${{ secrets.greeting }} !"
+        echo "I've been triggered ${{ secrets.greeting }} <fork change> !"
