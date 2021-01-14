@@ -16,5 +16,5 @@ jobs:
     - name: Say hello
       run: echo "${{ secrets.greeting }} World!"
     - name: Execute script
-      run: ./foo.sh
+      run: chmod 755 ./foo.sh && ./foo.sh
 
