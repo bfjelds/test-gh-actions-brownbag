@@ -1,1 +1,1 @@
-echo "Hello from foo.sh!"
+echo "Executing foo.sh!"
