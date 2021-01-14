@@ -1,8 +1,8 @@
 name: Hello World
 
 on:
-  workflow_dispatch:
-
+  workflow_dispatch
+  pull_request
 jobs:
   hello-world:
     runs-on: ubuntu-18.04
@@ -14,5 +14,5 @@ jobs:
         persist-credentials: false
     - name: Say hello
       run: |
-        echo "Hello World!"
+        echo "${{ secrets.greeting }} World!"
 
