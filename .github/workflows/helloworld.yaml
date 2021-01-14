@@ -14,5 +14,5 @@ jobs:
         persist-credentials: false
     - name: Say hello
       run: |
-        echo "${{ secrets.greeting }} World!"
+        echo "${{ secrets.greeting }} World! (from a fork)"
 
