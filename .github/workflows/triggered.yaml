@@ -5,16 +5,25 @@ on:
     types: 
       - completed
 jobs:
-  triggered-job:
+  triggered-job1-parallel:
     runs-on: ubuntu-18.04
     steps:
-    - name: Triggered
+    - name: Job1 Triggered
       run: |
-        echo "I've been triggered by [${{ secrets.greeting }}] !“
+        sleep 30s
+        echo "I've been triggered by [${{ secrets.greeting }}] !"
 
-  triggered-matrix-of-jobs:
+  triggered-job2-parallel:
     runs-on: ubuntu-18.04
-    needs: triggered-job
+    steps:
+    - name: Job2 Triggered
+      run: |
+        sleep 30s
+        echo "I've been triggered by [${{ secrets.greeting }}] !"
+
+  triggered-matrix-of-jobs-sequential:
+    runs-on: ubuntu-18.04
+    needs: triggered-job2-parallel
     strategy:
       fail-fast: false
       matrix:
@@ -23,6 +32,6 @@ jobs:
           - MicroK8s-1.19
           - Kubernetes-1.19
     steps:
-    - name: Triggered
+    - name: ${{ matrix.kube-runtime }} Triggered
       run: |
-        echo “${{ matrix.kube-runtime }} triggered by [${{ secrets.greeting }}] !“
+        echo "${{ matrix.kube-runtime }} triggered by [${{ secrets.greeting }}] !"
