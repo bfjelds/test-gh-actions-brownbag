@@ -1,4 +1,3 @@
-
 name: Triggered Workflow
 on:
   workflow_run:
@@ -12,8 +11,8 @@ jobs:
     - name: Job1 Triggered
       run: |
         sleep 30s
-        echo "I've been triggered by ${{ github.event.workflow_run.name }}!“
-        echo “Secret: [${{ secrets.greeting }}]"
+        echo "I've been triggered by ${{ github.event.workflow_run.name }}!"
+        echo "Secret: [${{ secrets.greeting }}]"
 
 
   triggered-job2-parallel:
@@ -23,8 +22,8 @@ jobs:
     - name: Job2 Triggered
       run: |
         sleep 30s
-        echo "I've been triggered by ${{ github.event.workflow_run.name }}!“
-        echo “Secret: [${{ secrets.greeting }}]“
+        echo "I've been triggered by ${{ github.event.workflow_run.name }}!"
+        echo "Secret: [${{ secrets.greeting }}]"
 
   triggered-matrix-of-jobs-sequential:
     runs-on: ubuntu-18.04
@@ -39,5 +38,5 @@ jobs:
     steps:
     - name: ${{ matrix.kube-runtime }} Triggered
       run: |
-        echo "${{ matrix.kube-runtime }} triggered by ${{ github.event.workflow_run.name }} !“
-        echo “Secret: [${{ secrets.greeting }}]“
+        echo "${{ matrix.kube-runtime }} triggered by ${{ github.event.workflow_run.name }} !"
+        echo "Secret: [${{ secrets.greeting }}]"
