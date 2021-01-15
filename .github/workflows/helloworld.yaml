@@ -20,6 +20,6 @@ jobs:
       with:
         persist-credentials: false
     - name: Say hello
-      run: echo “[${{ secrets.greeting }}] World!"
+      run: echo "[${{ secrets.greeting }}] World!"
     - name: Execute script
       run: chmod 755 ./foo.sh && ./foo.sh
