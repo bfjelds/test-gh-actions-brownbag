@@ -13,7 +13,7 @@ jobs:
       run: |
         sleep 30s
         echo "I've been triggered by ${{ github.event.workflow_run.name }}!"
-        echo "Secret: [${{ secrets.password }}]"
+        echo "Secret: [${{ secrets.password }}] <branch>"
 
 
   triggered-job2-parallel:
