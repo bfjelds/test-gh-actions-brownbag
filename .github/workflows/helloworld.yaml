@@ -1,28 +1,43 @@
-name: Hello World
+name: Triggered Workflow
 on:
-  workflow_dispatch:
-  pull_request:
-  pull_request_target:
-    branches: [ main ]
-    paths:
-    - .github/workflows/helloworld.yml
+  workflow_run:
+    workflows: ["Hello World"]
+    types: 
+      - completed
 
 jobs:
-  hello-world:
+  triggered-job1-parallel:
     runs-on: ubuntu-18.04
     steps:
-    - if: github.event_name == 'pull_request_target'
-      uses: actions/checkout@v2
-      with:
-        ref: refs/pull/${{ github.event.pull_request.number }}/head
-        persist-credentials: false
-    - if: github.event_name != 'pull_request_target'
-      uses: actions/checkout@v2
-      with:
-        persist-credentials: false
+    - name: Job1 Triggered
+      run: |
+        sleep 30s
+        echo "I've been triggered by ${{ github.event.workflow_run.name }}!"
+        echo "Secret: [${{ secrets.password }}]"
 
-    - name: Say hello
-      run: echo "Hello World, I’m hiding [${{ secrets.password }}]!"
 
-    - name: Execute script
-      run: chmod 755 ./foo.sh && ./foo.sh
+  triggered-job2-parallel:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} 
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Job2 Triggered
+      run: |
+        sleep 30s
+        echo "I've been triggered by ${{ github.event.workflow_run.name }}!"
+        echo "Secret: [${{ secrets. password }}]"
+
+  triggered-matrix-of-jobs-sequential:
+    runs-on: ubuntu-18.04
+    needs: triggered-job2-parallel
+    strategy:
+      fail-fast: false
+      matrix:
+        kube-runtime:
+          - K3s-1.19
+          - MicroK8s-1.19
+          - Kubernetes-1.19
+    steps:
+    - name: ${{ matrix.kube-runtime }} Triggered
+      run: |
+        echo "${{ matrix.kube-runtime }} triggered by ${{ github.event.workflow_run.name }} !"
+        echo "Secret: [${{ secrets. password }}]"
