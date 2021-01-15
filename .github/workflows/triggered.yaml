@@ -5,9 +5,29 @@ on:
     types: 
       - completed
 jobs:
-  triggered-workflow:
+  triggered-job:
     runs-on: ubuntu-18.04
     steps:
     - name: Triggered
       run: |
-        echo "I've been triggered ${{ secrets.greeting }} !"
+        echo "I've been triggered by [${{ secrets.greeting }}] !“
+
+  triggered-matrix-of-jobs:
+    runs-on: ubuntu-18.04
+    needs: triggered-job
+    strategy:
+      fail-fast: false
+      matrix:
+        kube-runtime:
+          - K3s-1.18
+          - K3s-1.19
+          - MicroK8s-1.18
+          - MicroK8s-1.19
+          - Kubernetes-1.16
+          - Kubernetes-1.17
+          - Kubernetes-1.18
+          - Kubernetes-1.19
+    steps:
+    - name: Triggered
+      run: |
+        echo “${{ matrix.kube-runtime }} triggered by [${{ secrets.greeting }}] !“
