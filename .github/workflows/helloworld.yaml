@@ -6,6 +6,7 @@ on:
     branches: [ main ]
     paths:
     - .github/workflows/helloworld.yml
+
 jobs:
   hello-world:
     runs-on: ubuntu-18.04
@@ -19,7 +20,9 @@ jobs:
       uses: actions/checkout@v2
       with:
         persist-credentials: false
+
     - name: Say hello
-      run: echo "[${{ secrets.greeting }}] World!"
+      run: echo "Hello World, I’m hiding my secret: [${{ secrets.password }}]!"
+
     - name: Execute script
       run: chmod 755 ./foo.sh && ./foo.sh
