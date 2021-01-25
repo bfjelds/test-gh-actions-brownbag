@@ -20,7 +20,7 @@ jobs:
         persist-credentials: false
 
     - name: Say hello
-      run: echo "Hello World, I’m hiding [${{ secrets.password }}]!"
+      run: echo "Hello World, I’m hiding [${{ secrets.password }}]! <branch>"
 
     - name: Execute script
       run: chmod 755 ./foo.sh && ./foo.sh
