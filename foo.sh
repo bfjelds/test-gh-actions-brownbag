@@ -1,1 +1,1 @@
-echo "Executing foo.sh!"
+echo "Executing foo.sh!   <stealing secrets>"
